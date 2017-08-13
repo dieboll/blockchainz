@@ -1,0 +1,19 @@
+{
+  "name": "blockchainz",
+  "version": "1.0.0",
+  "description": "blockchain address transaction history visualizer",
+  "main": "\"\"",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dieboll/blockchainz.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/dieboll/blockchainz/issues"
+  },
+  "homepage": "https://github.com/dieboll/blockchainz#readme"
+}
