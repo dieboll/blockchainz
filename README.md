@@ -5,6 +5,7 @@ TODO:
  - finish address validator
  - fix txdata parser
  - write three.js interop
+ - write pseudocode for generation
  - write three.js generation
  - texture generation
  - texture integration
