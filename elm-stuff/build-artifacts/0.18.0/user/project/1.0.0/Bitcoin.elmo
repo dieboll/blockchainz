@@ -1,0 +1,3 @@
+var _user$project$Bitcoin$toAddress = function (s) {
+	return _elm_lang$core$Maybe$Just(s);
+};
