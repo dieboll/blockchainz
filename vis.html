@@ -62,7 +62,6 @@
         info.style.textAlign = 'center';
         info.style.color = '#fff';
         info.style.link = '#f80';
-        info.innerHTML = '<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - geometry extrude shapes';
         document.body.appendChild(info);
         renderer = new THREE.WebGLRenderer();
         renderer.setClearColor(0x222222);
@@ -79,31 +78,8 @@
         var light = new THREE.PointLight(0xffffff);
         light.position.copy(camera.position);
         scene.add(light);
-        //Some Triangle dimensions
-        var dimensions = [15, 13, 12];
 
-        var extrudeSettings = {
-            steps: 100,
-            bevelEnabled: false,
-
-        };
-        var pts = [],
-            count = 3;
-        for (var i = 0; i < count; i++) {
-            var l = dimensions[i];
-            var a = 2 * i / count * Math.PI;
-            pts.push(new THREE.Vector2(Math.cos(a) * l, Math.sin(a) * l));
-        }
-        var shape = new THREE.Shape(pts);
-        var geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-        var material = new THREE.MeshLambertMaterial({ color: 0xb00000, wireframe: false });
-        var mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
-        var geo = new THREE.EdgesGeometry(geometry); // or WireframeGeometry( geometry )
-        var mat = new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 2 });
-        var wireframe = new THREE.LineSegments(geo, mat);
-
-        scene.add(wireframe);
+        
         //THIS IS WHERE YOU INPUT T1, T2, T3
         var A = new THREE.Vector2(0, 0);
         var B = new THREE.Vector2(30, 10);
@@ -121,16 +97,13 @@
 
     }
 
-    function createMaterials() {
-        var materials = [
-            new THREE.MeshBasicMaterial({ color: 0xff0000 }),
-            new THREE.MeshBasicMaterial({ color: 0xffff00 }),
-            new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
-            new THREE.MeshBasicMaterial({ color: 0x00ffff }),
-            new THREE.MeshBasicMaterial({ color: 0x0000ff }),
-            new THREE.MeshBasicMaterial({ color: 0xff00ff })
-        ];
-        return materials;
+    function createTransactionList(balancesBtc, balancesUsd, times) {
+    	txs = [];
+    	for (var i=0; i < balancesBtc.length; i++){
+    	t = [balancesBtc[i], balancesUsd[i], Math.sqrt((balancesBtc[i]*balancesBtc[i])+(balancesUsd[i]*balancesUsd[i]), times[i]];
+    		txs.push(t);
+      	}
+      	return txs;
     }
 
 
