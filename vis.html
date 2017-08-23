@@ -97,18 +97,25 @@
     function createTransactionList(balancesBtc, balancesUsd, times) {
     	txs = [];
     	for (var i=0; i < balancesBtc.length; i++){
-    	t = [balancesBtc[i], balancesUsd[i], Math.sqrt((balancesBtc[i]*balancesBtc[i])+(balancesUsd[i]*balancesUsd[i]), times[i]];
+    	t = [balancesBtc[i], balancesUsd[i], times[i]];
     		txs.push(t);
       	}
       	return txs;
     }
 
     function generateFrustum(lenghts1, lengths2){
-    	//THIS IS WHERE YOU INPUT T1, T2, T3
+    	var time = lengths2[2] - lengths1[2];
+    	//First Triangle
         var A = new THREE.Vector2(0, 0);
-        var B = new THREE.Vector2(30, 10);
-        var C = new THREE.Vector2(20, 50);
-
+        var B = new THREE.Vector2(0, lengths1[0]);
+        var C = new THREE.Vector2(lengths1[1], 0);
+        //Second Triangle
+        var D = new THREE.Vector2(0, 0);
+        var E = new THREE.Vector2(0, lengths2[0]);
+        var F = new THREE.Vector2(lengths2[1], 0);
+        //Create Geometry
+        //Assuming this altereed PrismGeometry class will take 6 vectors
+        var geometry = new PrismGeometry([A,B,C],[D,E,F], time)
     }
 
 
