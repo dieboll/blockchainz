@@ -80,10 +80,7 @@
         scene.add(light);
 
         
-        //THIS IS WHERE YOU INPUT T1, T2, T3
-        var A = new THREE.Vector2(0, 0);
-        var B = new THREE.Vector2(30, 10);
-        var C = new THREE.Vector2(20, 50);
+     
 
         var height = 12;
         var geometry = new PrismGeometry([A, B, C], height);
@@ -104,6 +101,14 @@
     		txs.push(t);
       	}
       	return txs;
+    }
+
+    function generateFrustum(lenghts1, lengths2){
+    	//THIS IS WHERE YOU INPUT T1, T2, T3
+        var A = new THREE.Vector2(0, 0);
+        var B = new THREE.Vector2(30, 10);
+        var C = new THREE.Vector2(20, 50);
+
     }
 
 
