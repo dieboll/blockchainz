@@ -1,0 +1,16 @@
+var m = require('mithril')
+
+var Address = {
+    id: '',
+    transactions = [],
+    loadTransactions: function() {
+        return m.request({
+            method: 'GET',
+            url: 'https://api.blockcypher.com/v1/btc/main/addrs',
+        }).then(function(result) {
+            Address.transactions = result.txs
+        })
+    },
+}
+
+module.exports = Address

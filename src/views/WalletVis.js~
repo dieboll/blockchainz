@@ -1,0 +1,11 @@
+var m = require('mithril')
+var Address = require('../models/Address')
+
+const placeholder = 'Enter Bitcoin address'
+
+module.exports = {
+    oninit: Address.loadTransactions,
+    view: function() {
+        return m('Address', [ m('input', {type: 'text', placeholder}), ])
+    }
+}
