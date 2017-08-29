@@ -20,13 +20,60 @@
 </head>
 
 <body>
+
+	<canvas id="canvas" style="max-width:300px;min-height:300px;"></canvas>
+
+ 
+
     <script src="./build/three.js"></script>
     <script src="js/controls/TrackballControls.js"></script>
+
+
+
     <script>
+    //CANVAS
+    var canvas = document.getElementById('canvas'),
+    ctx = canvas.getContext('2d');
+    //CANVAS
     var container;
     var camera, scene, renderer, controls;
     init();
     animate();
+
+    function changeCanvas() {
+    //BTC
+    ctx.font = '12pt Arial';
+    ctx.fillStyle = 'red';
+    ctx.fillRect(0, 0, canvas.width, canvas.height/3);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(10, 10, canvas.width - 20, canvas.height /3 - 20);
+    ctx.fillStyle = 'black';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("placeholder mBTC", canvas.width/2, canvas.height * .15);
+
+    //USD
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(0, canvas.height/3, canvas.width, (canvas.height / 3));
+    ctx.fillStyle = 'white';
+    ctx.fillRect( 10, canvas.height/3 +10,  canvas.width - 20 , canvas.height /3 -20);
+    ctx.fillStyle = 'black';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("placeholder USD", canvas.width /2 , canvas.height * 0.49995);
+
+    //UTC
+
+    ctx.fillStyle = 'yellow';
+    ctx.fillRect(0, (canvas.height/3)*2, canvas.width, (canvas.height / 3));
+    ctx.fillStyle = 'white';
+    ctx.fillRect( 10, (canvas.height/3)*2 +10,  canvas.width - 20 , canvas.height /3 -20);
+    ctx.fillStyle = 'black';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("placeholder UTC", canvas.width /2 , canvas.height * 0.8327);
+
+}
 
     function init() {
 
@@ -82,15 +129,34 @@
         
      
 
-        var height = 12;
+        var height = 50;
+        var A = new THREE.Vector2(0, 0);
+        var B = new THREE.Vector2(0, 50);
+        var C = new THREE.Vector2(60, 0);
+        //Mapping Vectors
+        var m3 = new THREE.Vector2(0, .333);
+        var m2 = new THREE.Vector2(1, .333);
+        var m1 = new THREE.Vector2(1, 0);
+        var m0 = new THREE.Vector2(0, 0);	
+    
+        var vectors = [m0, m1, m2, m3];
         var geometry = new PrismGeometry([A, B, C], height);
-
-        var material = new THREE.MeshPhongMaterial({ color: 0x00b2fc, specular: 0x00ffff, shininess: 20 });
+        //var geometry = new THREE.BoxGeometry( 200, 200, 200 );
+        texture = new THREE.Texture(canvas);
+        var material = new THREE.MeshBasicMaterial({ map: texture });
+        geometry.faceVertexUvs[0] = [];
+        geometry.faceVertexUvs[0][2] = [ vectors[0], vectors[1], vectors[3] ];
+		geometry.faceVertexUvs[0][3] = [ vectors[1], vectors[2], vectors[3] ];
+    	
 
         var prism1 = new THREE.Mesh(geometry, material);
-        prism1.rotation.x = -Math.PI / 2;
+        prism1.rotation.x = 1;
+        prism1.rotation.y = 2;
 
         scene.add(prism1);
+
+          changeCanvas();
+    texture.needsUpdate = true;
 
     }
 
@@ -118,10 +184,13 @@
         var geometry = new PrismGeometry([A,B,C],[D,E,F], time)
     }
 
+    
+
 
     function animate() {
         requestAnimationFrame(animate);
         controls.update();
+       
         renderer.render(scene, camera);
     }
     </script>
