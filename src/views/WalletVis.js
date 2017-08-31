@@ -16,8 +16,9 @@ module.exports = {
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setSize( 200, 200 );
         vnode.dom.append(renderer.domElement);
-        ctx = renderer.context;
-        vis = new Vis(ctx, renderer.domElement, 200, 200);
+        let ctx = renderer.context;
+        vis = new Vis(ctx, renderer.domElement, 200, 200, renderer);
+        vis.animate();
     },
     onupdate: function(vnode) {
         // update threejs here

@@ -2,9 +2,10 @@ var t = require('three');
 var ChainGeometry = require('./ChainGeometry');
 
 class Vis {
-    constructor(ctx, canvas, width, height) {
+    constructor(ctx, canvas, width, height, renderer) {
+        this.renderer = renderer;
         let scene = new t.Scene();
-        let camera = new t.PerspectiveCamera(45, this.width / this.height, 1, 1000);
+        let camera = new t.PerspectiveCamera(45, width / height, 1, 1000);
         camera.position.set(0, 0, 500);
         scene.add(new t.AmbientLight(0xffffff));
         let light = new t.PointLight(0xffffff);
@@ -39,20 +40,20 @@ class Vis {
         let m0 = new t.Vector2(0, 0);	
     
         let vectors = [m0, m1, m2, m3];
-        let geometry = new ChainGeometry([A, B, C], 50);
-        //let geometry = new t.BoxGeometry( 200, 200, 200 );
+        //let geometry = new ChainGeometry([A, B, C], 50);
+        let geometry = new t.BoxGeometry( 200, 200, 200 );
         let texture = new t.Texture(canvas);
         let material = new t.MeshBasicMaterial({ map: texture });
-        geometry.faceVertexUvs[0] = [];
-        geometry.faceVertexUvs[0][2] = [ vectors[0], vectors[1], vectors[3] ];
-	geometry.faceVertexUvs[0][3] = [ vectors[1], vectors[2], vectors[3] ];
+        //geometry.faceVertexUvs[0] = [];
+        //geometry.faceVertexUvs[0][2] = [ vectors[0], vectors[1], vectors[3] ];
+	//geometry.faceVertexUvs[0][3] = [ vectors[1], vectors[2], vectors[3] ];
     	
         let prism1 = new t.Mesh(geometry, material);
         prism1.rotation.x = 1;
         prism1.rotation.y = 2;
         scene.add(prism1);
 
-        texture.needsUpdate = true;
+        //texture.needsUpdate = true;
 
         this.scene = scene;
         this.camera = camera;
@@ -60,11 +61,20 @@ class Vis {
         this.width = width;
         this.height = height;
         this.canvas = canvas;
-        this.changeCanvas();        
+        //this.changeCanvas();        
     }
     animate() {
-        requestAnimationFrame(this.animate);
-        this.renderer.render(this.scene, this.camera);
+        let r = this.renderer;
+        let s = this.scene;
+        let c = this.camera;
+        console.log(r);
+        console.log(s);
+        console.log(c);
+        let cb = () => {
+            requestAnimationFrame(cb);
+            r.render(s, c);
+        };
+        cb();
     }
     changeCanvas() {
         //BTC
