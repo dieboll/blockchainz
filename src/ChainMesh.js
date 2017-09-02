@@ -1,5 +1,9 @@
 var t = require('three');
 
+var ChainMesh = function(data, drawTexture) {
+    const geometry = new ChainGeometry(data);
+};
+
 var ChainGeometry = function(stages) {
     t.Geometry.call(this);
     this.type = 'ChainGeometry';
