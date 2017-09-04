@@ -39,7 +39,7 @@ function txGeom(tx, height) {
 
     return [
         ...topA, ...topB, ...topC,
-        ...botD, ...botE, ...botF,
+        ...botD, ...botF, ...botE,
         ...sides
     ];
     

@@ -14,24 +14,24 @@ class Vis {
         
         camera.position.copy(userPosition);
         
-        //scene.add(new t.AmbientLight(0xffffff));
+        scene.add(new t.AmbientLight(0xffffff));
         
         let light = new t.PointLight(0xffffff, 1, 1000);
-        light.position.set(0, 0, 15);
+        light.position.copy(userPosition);
         scene.add(light);
 
         const data = [
+           // {
+           //     lengths: [ 3, 4, 5, 5, 3, 4 ],
+           //     height: 2
+           // },
+           // {
+           //     lengths: [ 4, 5, 5, 3, 4, 3 ],
+           //     height: 3
+           // },
             {
-                lengths: [ 3, 4, 5, 5, 3, 4 ],
-                height: 2
-            },
-            {
-                lengths: [ 4, 5, 5, 3, 4, 3 ],
+                lengths: [ 3, 3, 3, 2, 2, 2 ],
                 height: 3
-            },
-            {
-                lengths: [ 5, 3, 4, 3, 4, 5 ],
-                height: 1
             }
         ];
 
