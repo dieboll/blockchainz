@@ -5,8 +5,6 @@ var Vis = require('../vis');
 
 const placeholder = 'Enter Bitcoin address';
 
-var vis = undefined;
-
 module.exports = {
     oncreate: function(vnode) {
         // this is vnode.state
@@ -17,7 +15,7 @@ module.exports = {
         renderer.setSize( 200, 200 );
         vnode.dom.append(renderer.domElement);
         let ctx = renderer.context;
-        vis = new Vis(ctx, renderer.domElement, 200, 200, renderer);
+        let vis = new Vis(renderer);
         vis.animate();
     },
     onupdate: function(vnode) {

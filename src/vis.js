@@ -1,62 +1,72 @@
 var t = require('three');
 var ChainMesh = require('./ChainMesh');
+var OrbitControls = require('./OrbitControls');
 
 class Vis {
     constructor(renderer) {
         this.renderer = renderer;
         let { width, height } = renderer.getSize();
 
-        let userPosition = t.Vector3(0, 0, 500);
+        let userPosition = new t.Vector3(0, 0, 20);
         
         let scene = new t.Scene();
-        let camera = new t.PerspectiveCamera(45, width / height, 1, 1000);
+        let camera = new t.PerspectiveCamera(45, width / height, 0.1, 100);
         
-        camera.position.set(userPosition);
+        camera.position.copy(userPosition);
         
-        scene.add(new t.AmbientLight(0xffffff));
+        //scene.add(new t.AmbientLight(0xffffff));
         
-        let light = new t.PointLight(0xffffff);
-        light.position.copy(userPosition);
+        let light = new t.PointLight(0xffffff, 1, 1000);
+        light.position.set(0, 0, 15);
         scene.add(light);
 
-        let A = new t.Vector2(0, 0);
-        let B = new t.Vector2(0, 50);
-        let C = new t.Vector2(60, 0);
-        
-        let data = [A, B, C];
-        let draw = function(canvasContext, face) {};
-        let chain = new ChainMesh(data, draw);
-        chain.rotation.x = 1;
-        chain.rotation.y = 2;
+        const data = [
+            {
+                lengths: [ 3, 4, 5, 5, 3, 4 ],
+                height: 2
+            },
+            {
+                lengths: [ 4, 5, 5, 3, 4, 3 ],
+                height: 3
+            },
+            {
+                lengths: [ 5, 3, 4, 3, 4, 5 ],
+                height: 1
+            }
+        ];
+
+        let chain = ChainMesh(data);
         scene.add(chain);
 
         this.scene = scene;
         this.camera = camera;
+        this.controls = new OrbitControls(camera, renderer.domElement);
     }
 
     animate() {
         const r = this.renderer;
         const s = this.scene;
         const c = this.camera;
+        const u = this.controls;
 
         const draw = () => {
             requestAnimationFrame(draw);
+            u.update();
             r.render(s, c);
         };
         draw();
     }
+}
 
-    createCanvas(height, btc, usd, utc){
-        var canvas_name = 'canvas' + String(height);
-        //I'm not sure if this will break things or not, but naming it anything other than 'canvas' doesn't work
-        var canvas = document.createElement('canvas');
-        canvas.height = height + canvas.width;
-        let ctx = canvas.getContext('2d');
+function createCanvas(height, btc, usd, utc){
+    var canvas_name = 'canvas' + String(height);
+    //I'm not sure if this will break things or not, but naming it anything other than 'canvas' doesn't work
+    var canvas = document.createElement('canvas');
+    canvas.height = height + canvas.width;
+    let ctx = canvas.getContext('2d');
         
+    return canvas;
 
-        return canvas;
-
-    }
 }
 
 // drawTexture will be called for each face and provided with a
