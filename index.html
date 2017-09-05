@@ -5,10 +5,40 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
+		
+
 			body {
 				margin: 0px;
 				overflow: hidden;
+				font-family: Arial, sans-serif; 
 			}
+
+			input {
+				-webkit-appearance:caret;
+				height:30px;
+				width:200px;
+				font-size:16px;
+				position:absolute;
+				top:100px;
+				left:20px;
+				opacity: .6;
+			}
+
+			input:focus {
+    			outline: none;
+    			opacity: 1;
+			}
+
+			canvas {
+				position:absolute;
+				top:200px;
+				left:20px;
+			}
+
+			h1 {
+				margin-left:20px;
+			}
+
 		</style>
 	</head>
 	<body>

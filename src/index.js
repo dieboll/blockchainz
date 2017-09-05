@@ -6,7 +6,7 @@ var WalletVis = require('./views/WalletVis')
 var Main = {
     view: function() {
         return m('main', [
-            m('h1', 'Hello World!'),
+            m('h1', 'BlockChainz Visualizer Alpha'),
             m(WalletVis),
         ])
     }
