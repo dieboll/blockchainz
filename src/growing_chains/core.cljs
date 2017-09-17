@@ -1,5 +1,6 @@
 (ns growing-chains.core
-  (:require [cljsjs.three]))
+  (:require [[cljsjs.three][cljsjs.fabric]]))
+
 
 (defn get-camera
   []
@@ -29,8 +30,45 @@
   (js/THREE.Mesh. (js/THREE.BoxGeometry. x y z)
                   (js/THREE.MeshBasicMaterial.)))
 
+(defn create-USDcanvas
+  [d-balance d-exchange height width]
+  "Creates the texture for a USD side face."
+  (let
+    [texcanvas (js/fabric.Canvas. dbalance dexchange height width)]
+    (if (< height width/2)
+        (let
+          [animal (list (if ( < d-exchange 0) :bull :bear)(if ( < d-balance 0) :bad :good))
+           image-url (case animal
+                       '(:bull :good) "brownbull.svg"
+                       '(:bull :bad)  "greenbull.svg"
+                       '(:bear :good) "brownbear.svg"
+                       '(:bear :bad)  "blackbear.svg")
+           icon (js/fabric.Image.fromURL image-url)]
+          (body-exprs)))
+    (write-balance)))
+
+(defn create-BTCcanvas
+  [d-balance balance height width]
+  "Creates the texture for a BTC side face."
+  (let
+    [texcanvas (js/fabric.Canvas. dbalance balance height width)]
+    (if (< height width/2)
+        (let
+          [animal (list (if ( < d-balance (.25 * balance)) :pig :chicken)(if ( < d-balance 0) :bad :good))
+           image-url (case animal
+                       '(:pig :good) "pinkpig.svg"
+                       '(:pig :bad)  "greenpig.svg"
+                       '(:chicken :good) "purplechicken.svg"
+                       '(:chicken :bad)  "yellowchicken.svg")
+           icon (js/fabric.Image.fromURL image-url)]
+          (body-exprs)))
+    (write-balance)))
+
+
+
+
 ; Creates white rect:
-(def rect (create-rect 100 100 100))
+(def rect (create-rect 50 50 50))
 (.. rect -position (set 0 0 0))
 (.add scene rect)
 
